@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ZeQta | Future of AI & Gaming</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    /* Cosmic Design System Variables */
+    :root {
+      --bg-color: #0B0B15;
+      --text-color: #FFFFFF;
+      --accent1: #7A3BFF;
+      --accent2: #00F3FF;
+      --accent3: #FF2D75;
+      --gradient: linear-gradient(135deg, var(--accent1), var(--accent2), var(--accent3));
+    }
+    
+    [data-theme="light"] {
+      --bg-color: #FFFFFF;
+      --text-color: #1B1B1B;
+      --accent1: #8A63D2; /* softer purple */
+      --accent2: #00C6FB; /* vibrant blue */
+      --accent3: #FF4D80; /* punchy pink */
+      --gradient: linear-gradient(135deg, var(--accent1), var(--accent2), var(--accent3));
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    body {
+      background: var(--bg-color);
+      color: var(--text-color);
+      font-family: 'Inter', system-ui, sans-serif;
+      overflow-x: hidden;
+    }
+    
+    /* Navigation */
+    .quantum-nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      padding: 1.5rem 5%;
+      background: rgba(11, 11, 21, 0.95);
+      backdrop-filter: blur(20px);
+      z-index: 1000;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    
+    .brand-matrix {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    
+    .hologram-logo {
+      height: 45px;
+      filter: drop-shadow(0 0 10px var(--accent1));
+    }
+    
+    .cyber-brand {
+      font-size: 1.8rem;
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+    }
+    
+    /* Toggle Switch Styles */
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 60px;
+      height: 34px;
+    }
+    
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      transition: 0.4s;
+      border-radius: 34px;
+    }
+    
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 26px;
+      width: 26px;
+      left: 4px;
+      bottom: 4px;
+      background-color: white;
+      transition: 0.4s;
+      border-radius: 50%;
+    }
+    
+    input:checked + .slider {
+      background-color: var(--accent1);
+    }
+    
+    input:checked + .slider:before {
+      transform: translateX(26px);
+    }
+    
+    /* Hero Section */
+    .quantum-hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 0 5%;
+      background: radial-gradient(circle at 75% 30%, rgba(122,59,255,0.15) 0%, transparent 50%);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .hero-matrix {
+      max-width: 1200px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+      text-align: center;
+    }
+    
+    /* New Hero Text Animation */
+    @keyframes heroTextAnimation {
+      0% {
+        opacity: 0;
+        transform: translateY(50px) scale(0.95);
+      }
+      60% {
+        opacity: 1;
+        transform: translateY(-10px) scale(1.05);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+    
+    .hero-title {
+      font-size: 4.5rem;
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      animation: heroTextAnimation 1s forwards 0.3s;
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 30px rgba(0, 243, 255, 0.3);
+    }
+    
+    .hero-subtitle {
+      font-size: 1.8rem;
+      margin-bottom: 3rem;
+      opacity: 0;
+      animation: heroTextAnimation 1s forwards 0.6s;
+      color: rgba(255,255,255,0.8);
+    }
+    
+    /* Light Mode Overrides */
+    [data-theme="light"] .hero-title {
+      -webkit-text-fill-color: var(--text-color);
+      text-shadow: none;
+    }
+    
+    [data-theme="light"] .hero-subtitle {
+      color: var(--text-color);
+    }
+    
+    [data-theme="light"] .game-info {
+      background: rgba(255,255,255,0.6);
+      color: var(--text-color);
+    }
+    
+    /* Section Styling */
+    .quantum-section {
+      padding: 8rem 5%;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .section-header {
+      font-size: 3rem;
+      text-align: center;
+      margin-bottom: 4rem;
+      opacity: 0;
+      transform: translateY(50px);
+      animation: quantumEntrance 1s forwards;
+    }
+    
+    /* AI Innovations Grid */
+    .ai-nexus {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 2.5rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .cyber-card {
+      background: rgba(255,255,255,0.03);
+      border-radius: 20px;
+      padding: 2.5rem;
+      border: 1px solid rgba(122,59,255,0.2);
+      backdrop-filter: blur(10px);
+      opacity: 0;
+      transform: translateY(50px);
+      animation: quantumEntrance 1s forwards;
+    }
+    
+    .cyber-card:hover {
+      transform: translateY(-10px);
+      background: rgba(122,59,255,0.05);
+      box-shadow: 0 10px 30px rgba(122,59,255,0.1);
+    }
+    
+    /* Gaming Experiences Grid */
+    .neon-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .game-hologram {
+      border-radius: 20px;
+      overflow: hidden;
+      position: relative;
+      transform-style: preserve-3d;
+    }
+    
+    .game-hologram img {
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+      transition: transform 0.4s;
+      display: block;
+    }
+    
+    .game-hologram:hover img {
+      transform: scale(1.05);
+    }
+    
+    .game-info {
+      position: absolute;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.6);
+      width: 100%;
+      padding: 1rem;
+      text-align: center;
+    }
+    
+    .game-info h3 {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .game-info p {
+      font-size: 1rem;
+      margin: 0;
+    }
+    
+    /* Footer */
+    .quantum-footer {
+      background: rgba(11, 11, 21, 0.95);
+      padding: 4rem 5%;
+      border-top: 1px solid rgba(122,59,255,0.2);
+      text-align: center;
+    }
+    
+    .hologram-socials {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+    
+    .social-portal {
+      width: 50px;
+      height: 50px;
+      border-radius: 12px;
+      background: rgba(122,59,255,0.1);
+      display: grid;
+      place-items: center;
+      transition: 0.4s;
+    }
+    
+    .social-portal:hover {
+      background: var(--accent1);
+      transform: translateY(-5px);
+    }
+    
+    /* Animations */
+    @keyframes quantumEntrance {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .hero-title {
+        font-size: 3rem;
+      }
+      .cyber-brand {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="quantum-nav">
+    <div class="brand-matrix">
+      <img src="logo.png" alt="ZeQta" class="hologram-logo">
+      <span class="cyber-brand">ZeQta</span>
+    </div>
+    <!-- Toggle Switch for Dark/Light Mode -->
+    <label class="switch">
+      <input type="checkbox" id="themeSwitch" onchange="toggleThemeSwitch()">
+      <span class="slider"></span>
+    </label>
+  </nav>
+  
+  <!-- Hero Section -->
+  <section class="quantum-hero">
+    <div class="hero-matrix">
+      <h1 class="hero-title">ZeQta: Pioneering the Future of AI & Gaming</h1>
+      <p class="hero-subtitle">
+        Bridging cutting-edge artificial intelligence with immersive interactive gaming experiences.
+      </p>
+    </div>
+  </section>
+  
+  <!-- AI Innovations Section -->
+  <section class="quantum-section">
+    <h2 class="section-header">AI Innovations</h2>
+    <div class="ai-nexus">
+      <div class="cyber-card">
+        <h3>CyberPulse AI</h3>
+        <p>
+          Redefining creativity and innovation with our flagship AI engine—delivering next-generation digital solutions and immersive experiences.
+        </p>
+        <div class="status-tag">Innovating Now</div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Gaming Experiences Section -->
+  <section class="quantum-section">
+    <h2 class="section-header">Gaming Experiences</h2>
+    <div class="neon-grid">
+      <div class="game-hologram">
+        <img src="cs.png" alt="CyberSavvy2099">
+        <div class="game-info">
+          <h3>CyberSavvy2099</h3>
+          <p>
+            An immersive open-world experience combining dynamic gameplay, advanced mechanics, and a rich futuristic narrative.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Footer -->
+  <footer class="quantum-footer">
+    <div class="hologram-socials">
+      <a href="https://www.youtube.com/@ZeQtaOfficial" class="social-portal" target="_blank" rel="noopener">
+        <i class="fab fa-youtube"></i>
+      </a>
+    </div>
+    <p class="copyright">© 2025 ZeQta Industries. All rights reserved.</p>
+  </footer>
+  
+  <script>
+    // Toggle Switch Functionality for Dark/Light Mode
+    function toggleThemeSwitch() {
+      const themeSwitch = document.getElementById('themeSwitch');
+      if (themeSwitch.checked) {
+        document.body.setAttribute('data-theme', 'light');
+        localStorage.setItem('quantumTheme', 'light');
+      } else {
+        document.body.setAttribute('data-theme', 'dark');
+        localStorage.setItem('quantumTheme', 'dark');
+      }
+    }
+    
+    // Initialize theme based on saved preference
+    const savedQuantum = localStorage.getItem('quantumTheme') || 'dark';
+    document.body.setAttribute('data-theme', savedQuantum);
+    document.getElementById('themeSwitch').checked = savedQuantum === 'light';
+    
+    // Intersection Observer for Section Animations
+    const quantumSections = document.querySelectorAll('.quantum-section, .cyber-card');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = 1;
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, { threshold: 0.1 });
+    
+    quantumSections.forEach(section => observer.observe(section));
+  </script>
+</body>
+</html>

@@ -6,7 +6,7 @@
   <title>ZeQta | Future of AI & Gaming</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <style>
-    /* --- Dark Mode Variables Only --- */
+    /* --- Dark Mode Variables --- */
     :root {
       --bg-color: #0B0B15;
       --text-color: #FFFFFF;
@@ -48,23 +48,33 @@
       50% { background-position: 100% 50%; }
       100% { background-position: 0% 50%; }
     }
-    /* Logo styling with zoom-in and pulse */
+    /* Canvas for the boot-up simulation (Matrix code effect) */
+    #loading-canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: block;
+      z-index: 1;
+    }
+    /* Logo styling: centered, enlarged, with zoomIn & pulse */
     #loading-logo {
       width: 300px;
       opacity: 0;
-      transform: translate(-50%, -50%) scale(0);
+      transform: scale(0);
       z-index: 10;
     }
     @keyframes zoomIn {
-      0% { opacity: 0; transform: translate(-50%, -50%) scale(0); }
-      100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+      0% { opacity: 0; transform: scale(0); }
+      100% { opacity: 1; transform: scale(1); }
     }
     @keyframes pulse {
-      0% { transform: translate(-50%, -50%) scale(1); }
-      50% { transform: translate(-50%, -50%) scale(1.05); }
-      100% { transform: translate(-50%, -50%) scale(1); }
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
     }
-    /* =================== Navigation (Unchanged) =================== */
+    /* =================== Navigation =================== */
     .quantum-nav {
       position: fixed;
       top: 0;
@@ -96,7 +106,7 @@
       letter-spacing: -0.5px;
     }
     .switch { display: none; }
-    /* =================== Hero Section (Unchanged) =================== */
+    /* =================== Hero Section =================== */
     .quantum-hero {
       position: relative;
       min-height: 100vh;
@@ -106,7 +116,7 @@
       overflow: hidden;
       background: radial-gradient(circle at 75% 30%, rgba(122,59,255,0.15) 0%, transparent 50%);
     }
-    /* Matrix Rain Canvas for Hero Section (Unchanged) */
+    /* Matrix Rain Canvas for Hero Section */
     #matrix-canvas {
       position: absolute;
       top: 0;
@@ -122,17 +132,10 @@
       z-index: 1;
       text-align: center;
     }
-    @keyframes heroTextAnimation {
-      0% { opacity: 0; transform: translateY(50px) scale(0.95); }
-      60% { opacity: 1; transform: translateY(-10px) scale(1.05); }
-      100% { opacity: 1; transform: translateY(0) scale(1); }
-    }
     .hero-title {
       font-size: 4.5rem;
       line-height: 1.1;
       margin-bottom: 1.5rem;
-      opacity: 0;
-      animation: heroTextAnimation 1s forwards 0.3s;
       background: var(--gradient);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -141,26 +144,16 @@
     .hero-subtitle {
       font-size: 1.8rem;
       margin-bottom: 3rem;
-      opacity: 0;
-      animation: heroTextAnimation 1s forwards 0.6s;
       color: rgba(255,255,255,0.8);
     }
-    /* =================== Section Styling (Unchanged) =================== */
+    /* =================== AI Innovations Section =================== */
     .quantum-section {
       padding: 8rem 5%;
-      position: relative;
-      overflow: hidden;
+      text-align: center;
     }
     .section-header {
       font-size: 3rem;
-      text-align: center;
       margin-bottom: 4rem;
-      opacity: 0;
-      transform: translateY(50px);
-      animation: quantumEntrance 1s forwards;
-    }
-    @keyframes quantumEntrance {
-      to { opacity: 1; transform: translateY(0); }
     }
     .ai-nexus {
       display: grid;
@@ -175,15 +168,8 @@
       padding: 2.5rem;
       border: 1px solid rgba(122,59,255,0.2);
       backdrop-filter: blur(10px);
-      opacity: 0;
-      transform: translateY(50px);
-      animation: quantumEntrance 1s forwards;
     }
-    .cyber-card:hover {
-      transform: translateY(-10px);
-      background: rgba(122,59,255,0.05);
-      box-shadow: 0 10px 30px rgba(122,59,255,0.1);
-    }
+    /* =================== Gaming Experiences Section =================== */
     .neon-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -196,7 +182,6 @@
       overflow: hidden;
       position: relative;
       transform-style: preserve-3d;
-      cursor: pointer;
     }
     .game-hologram img {
       width: 100%;
@@ -208,10 +193,19 @@
     .game-hologram:hover img {
       transform: scale(1.05);
     }
-    /* Hide game info by default; it will appear in a modal on click */
     .game-info {
-      display: none;
+      padding: 1rem;
+      text-align: left;
     }
+    .game-info h3 {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+    .game-info p {
+      font-size: 1rem;
+      margin: 0;
+    }
+    /* =================== Footer =================== */
     .quantum-footer {
       background: rgba(11,11,21,0.95);
       padding: 4rem 5%;
@@ -241,47 +235,16 @@
       .hero-title { font-size: 3rem; }
       .cyber-brand { font-size: 1.5rem; }
     }
-    /* =================== Modal Styles for Game Details =================== */
-    #game-modal {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.85);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 1500;
-    }
-    #game-modal .modal-content {
-      background: #111;
-      padding: 2rem;
-      border-radius: 8px;
-      max-width: 600px;
-      width: 90%;
-      color: #fff;
-      text-align: center;
-      position: relative;
-    }
-    #game-modal .close-btn {
-      position: absolute;
-      top: 10px;
-      right: 15px;
-      font-size: 1.5rem;
-      cursor: pointer;
-    }
   </style>
 </head>
 <body>
   <!-- =================== Loading Screen =================== -->
   <div id="loading-screen">
     <canvas id="loading-canvas"></canvas>
-    <!-- The ZeQta logo will animate into view -->
     <img id="loading-logo" src="logo.png" alt="ZeQta">
   </div>
   
-  <!-- =================== Navigation (Unchanged) =================== -->
+  <!-- =================== Navigation =================== -->
   <nav class="quantum-nav">
     <div class="brand-matrix">
       <img src="logo.png" alt="ZeQta" class="hologram-logo">
@@ -289,7 +252,7 @@
     </div>
   </nav>
   
-  <!-- =================== Hero Section (Unchanged) =================== -->
+  <!-- =================== Hero Section =================== -->
   <section class="quantum-hero">
     <canvas id="matrix-canvas"></canvas>
     <div class="hero-matrix">
@@ -300,57 +263,45 @@
     </div>
   </section>
   
-  <!-- =================== AI Innovations Section (Unchanged) =================== -->
+  <!-- =================== AI Innovations Section =================== -->
   <section class="quantum-section">
     <h2 class="section-header">AI Innovations</h2>
     <div class="ai-nexus">
       <div class="cyber-card">
         <h3>ByteVault</h3>
-        <p>
-          A revolutionary blockchain-powered vault ensuring secure, decentralized storage for next-generation digital assets.
-        </p>
-        <div class="status-tag">Launching Soon</div>
+        <p>A revolutionary blockchain-powered vault ensuring secure, decentralized storage for next-generation digital assets.</p>
       </div>
     </div>
   </section>
   
-  <!-- =================== Gaming Experiences Section (Updated) =================== -->
+  <!-- =================== Gaming Experiences Section =================== -->
   <section class="quantum-section">
     <h2 class="section-header">Gaming Experiences</h2>
     <div class="neon-grid">
-      <div class="game-hologram" id="game-card">
-        <!-- Updated thumbnail for the horror game "No One's Home" -->
-        <img src="non.html" alt="No One's Home">
+      <div class="game-hologram">
+        <!-- Thumbnail for "No One's Home" (16:9 aspect ratio) -->
+        <img src="noh.png" alt="No One's Home">
+        <div class="game-info">
+          <h3>No One's Home</h3>
+          <p>No One's Home is a horror game set in a seemingly normal house that quickly reveals its dark secrets. Experience the creeping dread and unsettling atmosphere as you uncover what lurks behind every door.</p>
+        </div>
       </div>
     </div>
   </section>
   
-  <!-- =================== Modal for Game Details =================== -->
-  <div id="game-modal">
-    <div class="modal-content">
-      <span class="close-btn" id="close-modal">&times;</span>
-      <!-- Here you can either embed non.html via an iframe or place a description directly -->
-      <!-- For simplicity, we use an iframe -->
-      <iframe src="non.png" style="width:100%; height:300px; border:none;"></iframe>
-      <!-- Alternatively, a clean description: -->
-      <!-- <h2>No One's Home</h2>
-      <p>No One's Home is a horror game set in a seemingly normal house that quickly reveals its dark secrets. Experience the unsettling atmosphere and eerie surprises as you uncover what lurks behind every closed door.</p> -->
-    </div>
-  </div>
-  
-  <!-- =================== Footer (Unchanged) =================== -->
+  <!-- =================== Footer =================== -->
   <footer class="quantum-footer">
     <div class="hologram-socials">
       <a href="https://www.youtube.com/@ZeQtaOfficial" class="social-portal" target="_blank" rel="noopener">
         <i class="fab fa-youtube"></i>
       </a>
     </div>
-    <p class="copyright">© 2025 ZeQta Industries. All rights reserved.</p>
+    <p>© 2025 ZeQta Industries. All rights reserved.</p>
   </footer>
   
   <!-- =================== Loading Screen Animation Script =================== -->
   <script>
-    // Set up the loading canvas for the boot-up simulation effect
+    // Setup loading canvas for Matrix-like boot-up effect
     const loadingCanvas = document.getElementById('loading-canvas');
     const lctx = loadingCanvas.getContext('2d');
     function resizeLoadingCanvas() {
@@ -360,14 +311,11 @@
     resizeLoadingCanvas();
     window.addEventListener('resize', resizeLoadingCanvas);
     
-    // Characters to simulate code/boot-up effect
     const codeChars = "01ABCDEF<>[]{}();:/*$#@!?".split("");
-    
-    // Global animation timing for loading screen
     const loadStart = performance.now();
     
     function drawLoading() {
-      const t = (performance.now() - loadStart) / 1000; // elapsed seconds
+      const t = (performance.now() - loadStart) / 1000; // elapsed time in seconds
       lctx.clearRect(0, 0, loadingCanvas.width, loadingCanvas.height);
       
       // Phase 1: 0-3 sec: gradually display random code lines
@@ -377,23 +325,24 @@
           drawRandomCodeLine();
         }
       }
-      // Phase 2: 3-6 sec: accelerate with many code lines filling the screen
+      // Phase 2: 3-6 sec: accelerate; many lines fill the screen
       else if (t < 6) {
         for (let i = 0; i < 30; i++) {
           drawRandomCodeLine();
         }
       }
-      // Phase 3: 6-8 sec: code lines converge toward center and fade
+      // Phase 3: 6-8 sec: code lines converge toward the center and fade out
       else if (t < 8) {
         let progress = (t - 6) / 2;
         for (let i = 0; i < 50; i++) {
           drawConvergingCodeLine(progress);
         }
       }
-      // Phase 4: 8+ sec: clear canvas (ready for logo reveal)
+      // Phase 4: 8+ sec: clear the canvas (ready for logo reveal)
       else {
         lctx.clearRect(0, 0, loadingCanvas.width, loadingCanvas.height);
       }
+      
       requestAnimationFrame(drawLoading);
     }
     
@@ -433,10 +382,10 @@
     
     requestAnimationFrame(drawLoading);
     
-    // After 8 seconds, trigger the logo zoom-in & pulse; then after 3 more seconds fade out the loading screen.
+    // After 5 seconds, trigger the logo zoom-in & pulse; then fade out the loading screen.
     setTimeout(() => {
       const loadingLogo = document.getElementById('loading-logo');
-      loadingLogo.style.animation = "zoomIn 1s forwards, pulse 2s 1s infinite";
+      loadingLogo.style.animation = "zoomIn 1s forwards, pulse 2s infinite 1s";
       setTimeout(() => {
         document.getElementById('loading-screen').style.transition = "opacity 1s";
         document.getElementById('loading-screen').style.opacity = 0;
@@ -447,7 +396,7 @@
     }, 5000);
   </script>
   
-  <!-- =================== Matrix Rain Effect Script for Hero Section (Unchanged) =================== -->
+  <!-- =================== Matrix Rain Effect Script for Hero Section =================== -->
   <script>
     const matrixCanvas = document.getElementById('matrix-canvas');
     const ctx = matrixCanvas.getContext('2d');
@@ -458,7 +407,7 @@
     resizeMatrix();
     const letters = "01".split("");
     const fontSize = 16;
-    const columns = matrixCanvas.width / fontSize;
+    const columns = Math.floor(matrixCanvas.width / fontSize);
     const drops = [];
     for (let i = 0; i < columns; i++) {
       drops[i] = 1;
@@ -481,7 +430,7 @@
     window.addEventListener('resize', resizeMatrix);
   </script>
   
-  <!-- =================== Intersection Observer for Section Animations (Unchanged) =================== -->
+  <!-- =================== Intersection Observer for Section Animations =================== -->
   <script>
     const quantumSections = document.querySelectorAll('.quantum-section, .cyber-card');
     const observer = new IntersectionObserver(entries => {
@@ -493,18 +442,6 @@
       });
     }, { threshold: 0.1 });
     quantumSections.forEach(section => observer.observe(section));
-  </script>
-  
-  <!-- =================== Modal Script for Game Details =================== -->
-  <script>
-    // Open modal when game card is clicked
-    document.getElementById('game-card').addEventListener('click', () => {
-      document.getElementById('game-modal').style.display = 'flex';
-    });
-    // Close modal when close button is clicked
-    document.getElementById('close-modal').addEventListener('click', () => {
-      document.getElementById('game-modal').style.display = 'none';
-    });
   </script>
 </body>
 </html>

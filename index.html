@@ -6,7 +6,7 @@
   <title>ZeQta | Future of AI & Gaming</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <style>
-    /* --- Dark Mode Variables --- */
+    /* Dark Mode Variables Only */
     :root {
       --bg-color: #0B0B15;
       --text-color: #FFFFFF;
@@ -34,45 +34,32 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: linear-gradient(45deg, #0B0B15, #1C1C2E, #0B0B15);
-      background-size: 400% 400%;
-      animation: gradientShift 6s ease infinite;
+      background: var(--bg-color);
       z-index: 2000;
       display: flex;
       align-items: center;
       justify-content: center;
       flex-direction: column;
     }
-    @keyframes gradientShift {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-    /* Canvas for the boot-up simulation (Matrix code effect) */
+    /* The 2D loading canvas */
     #loading-canvas {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      display: block;
-      z-index: 1;
     }
-    /* Logo styling: centered, enlarged, with zoomIn & pulse */
+    /* Larger logo with zoom-in effect */
     #loading-logo {
-      width: 300px;
+      position: relative;
+      z-index: 1;
       opacity: 0;
       transform: scale(0);
-      z-index: 10;
+      width: 300px; /* Increased size */
     }
     @keyframes zoomIn {
       0% { opacity: 0; transform: scale(0); }
       100% { opacity: 1; transform: scale(1); }
-    }
-    @keyframes pulse {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.05); }
-      100% { transform: scale(1); }
     }
     /* =================== Navigation =================== */
     .quantum-nav {
@@ -105,6 +92,7 @@
       font-weight: 800;
       letter-spacing: -0.5px;
     }
+    /* (Toggle switch removed – dark mode only) */
     .switch { display: none; }
     /* =================== Hero Section =================== */
     .quantum-hero {
@@ -132,28 +120,54 @@
       z-index: 1;
       text-align: center;
     }
+    @keyframes heroTextAnimation {
+      0% {
+        opacity: 0;
+        transform: translateY(50px) scale(0.95);
+      }
+      60% {
+        opacity: 1;
+        transform: translateY(-10px) scale(1.05);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
     .hero-title {
       font-size: 4.5rem;
       line-height: 1.1;
       margin-bottom: 1.5rem;
+      opacity: 0;
+      animation: heroTextAnimation 1s forwards 0.3s;
       background: var(--gradient);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      text-shadow: 0 0 30px rgba(0,243,255,0.3);
+      text-shadow: 0 0 30px rgba(0, 243, 255, 0.3);
     }
     .hero-subtitle {
       font-size: 1.8rem;
       margin-bottom: 3rem;
+      opacity: 0;
+      animation: heroTextAnimation 1s forwards 0.6s;
       color: rgba(255,255,255,0.8);
     }
-    /* =================== AI Innovations Section =================== */
+    /* =================== Section Styling =================== */
     .quantum-section {
       padding: 8rem 5%;
-      text-align: center;
+      position: relative;
+      overflow: hidden;
     }
     .section-header {
       font-size: 3rem;
+      text-align: center;
       margin-bottom: 4rem;
+      opacity: 0;
+      transform: translateY(50px);
+      animation: quantumEntrance 1s forwards;
+    }
+    @keyframes quantumEntrance {
+      to { opacity: 1; transform: translateY(0); }
     }
     .ai-nexus {
       display: grid;
@@ -168,8 +182,15 @@
       padding: 2.5rem;
       border: 1px solid rgba(122,59,255,0.2);
       backdrop-filter: blur(10px);
+      opacity: 0;
+      transform: translateY(50px);
+      animation: quantumEntrance 1s forwards;
     }
-    /* =================== Gaming Experiences Section =================== */
+    .cyber-card:hover {
+      transform: translateY(-10px);
+      background: rgba(122,59,255,0.05);
+      box-shadow: 0 10px 30px rgba(122,59,255,0.1);
+    }
     .neon-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -194,8 +215,12 @@
       transform: scale(1.05);
     }
     .game-info {
+      position: absolute;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.6);
+      width: 100%;
       padding: 1rem;
-      text-align: left;
+      text-align: center;
     }
     .game-info h3 {
       font-size: 1.5rem;
@@ -205,9 +230,8 @@
       font-size: 1rem;
       margin: 0;
     }
-    /* =================== Footer =================== */
     .quantum-footer {
-      background: rgba(11,11,21,0.95);
+      background: rgba(11, 11, 21, 0.95);
       padding: 4rem 5%;
       border-top: 1px solid rgba(122,59,255,0.2);
       text-align: center;
@@ -238,9 +262,10 @@
   </style>
 </head>
 <body>
-  <!-- =================== Loading Screen =================== -->
+  <!-- =================== Loading Screen with 2D Matrix Effect =================== -->
   <div id="loading-screen">
     <canvas id="loading-canvas"></canvas>
+    <!-- The logo image will zoom in (bigger) -->
     <img id="loading-logo" src="logo.png" alt="ZeQta">
   </div>
   
@@ -252,7 +277,7 @@
     </div>
   </nav>
   
-  <!-- =================== Hero Section =================== -->
+  <!-- =================== Hero Section with Matrix Rain Effect =================== -->
   <section class="quantum-hero">
     <canvas id="matrix-canvas"></canvas>
     <div class="hero-matrix">
@@ -269,7 +294,10 @@
     <div class="ai-nexus">
       <div class="cyber-card">
         <h3>ByteVault</h3>
-        <p>A revolutionary blockchain-powered vault ensuring secure, decentralized storage for next-generation digital assets.</p>
+        <p>
+          A revolutionary blockchain-powered vault ensuring secure, decentralized storage for next-generation digital assets.
+        </p>
+        <div class="status-tag">Launching Soon</div>
       </div>
     </div>
   </section>
@@ -279,11 +307,12 @@
     <h2 class="section-header">Gaming Experiences</h2>
     <div class="neon-grid">
       <div class="game-hologram">
-        <!-- Thumbnail for "No One's Home" (16:9 aspect ratio) -->
-        <img src="noh.png" alt="No One's Home">
+        <img src="noh.png"alt="Shadows of the Still">
         <div class="game-info">
-          <h3>No One's Home</h3>
-          <p>No One's Home is a horror game set in a seemingly normal house that quickly reveals its dark secrets. Experience the creeping dread and unsettling atmosphere as you uncover what lurks behind every door.</p>
+          <h3>No one's home</h3>
+          <p>
+            A spine-chilling horror experience that plunges you into a dark, unsettling world where fear is redefined.
+          </p>
         </div>
       </div>
     </div>
@@ -296,105 +325,8 @@
         <i class="fab fa-youtube"></i>
       </a>
     </div>
-    <p>© 2025 ZeQta Industries. All rights reserved.</p>
+    <p class="copyright">© 2025 ZeQta Industries. All rights reserved.</p>
   </footer>
-  
-  <!-- =================== Loading Screen Animation Script =================== -->
-  <script>
-    // Setup loading canvas for Matrix-like boot-up effect
-    const loadingCanvas = document.getElementById('loading-canvas');
-    const lctx = loadingCanvas.getContext('2d');
-    function resizeLoadingCanvas() {
-      loadingCanvas.width = window.innerWidth;
-      loadingCanvas.height = window.innerHeight;
-    }
-    resizeLoadingCanvas();
-    window.addEventListener('resize', resizeLoadingCanvas);
-    
-    const codeChars = "01ABCDEF<>[]{}();:/*$#@!?".split("");
-    const loadStart = performance.now();
-    
-    function drawLoading() {
-      const t = (performance.now() - loadStart) / 1000; // elapsed time in seconds
-      lctx.clearRect(0, 0, loadingCanvas.width, loadingCanvas.height);
-      
-      // Phase 1: 0-3 sec: gradually display random code lines
-      if (t < 3) {
-        let numLines = Math.floor(5 * t);
-        for (let i = 0; i < numLines; i++) {
-          drawRandomCodeLine();
-        }
-      }
-      // Phase 2: 3-6 sec: accelerate; many lines fill the screen
-      else if (t < 6) {
-        for (let i = 0; i < 30; i++) {
-          drawRandomCodeLine();
-        }
-      }
-      // Phase 3: 6-8 sec: code lines converge toward the center and fade out
-      else if (t < 8) {
-        let progress = (t - 6) / 2;
-        for (let i = 0; i < 50; i++) {
-          drawConvergingCodeLine(progress);
-        }
-      }
-      // Phase 4: 8+ sec: clear the canvas (ready for logo reveal)
-      else {
-        lctx.clearRect(0, 0, loadingCanvas.width, loadingCanvas.height);
-      }
-      
-      requestAnimationFrame(drawLoading);
-    }
-    
-    function drawRandomCodeLine() {
-      const text = generateRandomString(20);
-      const x = Math.random() * loadingCanvas.width;
-      const y = Math.random() * loadingCanvas.height;
-      lctx.font = "20px monospace";
-      lctx.fillStyle = "#00F3FF";
-      lctx.shadowColor = "#00F3FF";
-      lctx.shadowBlur = 6;
-      lctx.fillText(text, x, y);
-    }
-    
-    function drawConvergingCodeLine(progress) {
-      const startX = Math.random() * loadingCanvas.width;
-      const startY = Math.random() * loadingCanvas.height;
-      const centerX = loadingCanvas.width / 2;
-      const centerY = loadingCanvas.height / 2;
-      const x = startX + (centerX - startX) * progress;
-      const y = startY + (centerY - startY) * progress;
-      const text = generateRandomString(30);
-      lctx.font = "20px monospace";
-      lctx.fillStyle = `rgba(0,243,255,${1 - progress})`;
-      lctx.shadowColor = "#00F3FF";
-      lctx.shadowBlur = 8;
-      lctx.fillText(text, x, y);
-    }
-    
-    function generateRandomString(length) {
-      let str = "";
-      for (let i = 0; i < length; i++) {
-        str += codeChars[Math.floor(Math.random() * codeChars.length)];
-      }
-      return str;
-    }
-    
-    requestAnimationFrame(drawLoading);
-    
-    // After 5 seconds, trigger the logo zoom-in & pulse; then fade out the loading screen.
-    setTimeout(() => {
-      const loadingLogo = document.getElementById('loading-logo');
-      loadingLogo.style.animation = "zoomIn 1s forwards, pulse 2s infinite 1s";
-      setTimeout(() => {
-        document.getElementById('loading-screen').style.transition = "opacity 1s";
-        document.getElementById('loading-screen').style.opacity = 0;
-        setTimeout(() => {
-          document.getElementById('loading-screen').remove();
-        }, 1000);
-      }, 3000);
-    }, 5000);
-  </script>
   
   <!-- =================== Matrix Rain Effect Script for Hero Section =================== -->
   <script>
@@ -407,7 +339,7 @@
     resizeMatrix();
     const letters = "01".split("");
     const fontSize = 16;
-    const columns = Math.floor(matrixCanvas.width / fontSize);
+    const columns = matrixCanvas.width / fontSize;
     const drops = [];
     for (let i = 0; i < columns; i++) {
       drops[i] = 1;
@@ -415,6 +347,7 @@
     function drawMatrix() {
       ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
       ctx.fillRect(0, 0, matrixCanvas.width, matrixCanvas.height);
+      // Use the accent color (#6366f1) for the falling digits
       ctx.fillStyle = "#6366f1";
       ctx.font = fontSize + "px monospace";
       for (let i = 0; i < drops.length; i++) {
@@ -428,6 +361,58 @@
     }
     setInterval(drawMatrix, 33);
     window.addEventListener('resize', resizeMatrix);
+  </script>
+  
+  <!-- =================== 2D Loading Screen Matrix Effect Script =================== -->
+  <script>
+    const loadingCanvas = document.getElementById('loading-canvas');
+    const lctx = loadingCanvas.getContext('2d');
+    function resizeLoadingCanvas() {
+      loadingCanvas.width = window.innerWidth;
+      loadingCanvas.height = window.innerHeight;
+    }
+    resizeLoadingCanvas();
+    const lFontSize = 24;
+    const lColumns = Math.floor(loadingCanvas.width / lFontSize);
+    const lDrops = [];
+    for (let i = 0; i < lColumns; i++) {
+      lDrops[i] = 1;
+    }
+    function drawLoadingMatrix() {
+      lctx.fillStyle = "rgba(0, 0, 0, 0.1)";
+      lctx.fillRect(0, 0, loadingCanvas.width, loadingCanvas.height);
+      lctx.fillStyle = "#6366f1";
+      lctx.font = lFontSize + "px monospace";
+      lctx.shadowColor = "#6366f1";
+      lctx.shadowBlur = 8;
+      for (let i = 0; i < lDrops.length; i++) {
+        const text = Math.random() > 0.5 ? "0" : "1";
+        lctx.fillText(text, i * lFontSize, lDrops[i] * lFontSize);
+        if (lDrops[i] * lFontSize > loadingCanvas.height && Math.random() > 0.975) {
+          lDrops[i] = 0;
+        }
+        lDrops[i]++;
+      }
+    }
+    const loadingInterval = setInterval(drawLoadingMatrix, 33);
+    window.addEventListener('resize', resizeLoadingCanvas);
+  </script>
+  
+  <!-- =================== Loading Screen Transition Script =================== -->
+  <script>
+    // After 5 seconds, zoom in the logo then fade out the loading screen
+    setTimeout(() => {
+      const loadingLogo = document.getElementById('loading-logo');
+      loadingLogo.style.animation = "zoomIn 1s forwards";
+      setTimeout(() => {
+        document.getElementById('loading-screen').style.transition = "opacity 1s";
+        document.getElementById('loading-screen').style.opacity = 0;
+        clearInterval(loadingInterval);
+        setTimeout(() => {
+          document.getElementById('loading-screen').remove();
+        }, 1000);
+      }, 2000);
+    }, 5000);
   </script>
   
   <!-- =================== Intersection Observer for Section Animations =================== -->

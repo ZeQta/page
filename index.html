@@ -204,14 +204,15 @@
       position: relative;
       transform-style: preserve-3d;
     }
-    .game-hologram img {
+    .game-hologram img,
+    .game-hologram video {
       width: 100%;
       height: auto;
       object-fit: cover;
       transition: transform 0.4s;
       display: block;
     }
-    .game-hologram:hover img {
+    .game-hologram:hover video {
       transform: scale(1.05);
     }
     .game-info {
@@ -229,6 +230,7 @@
     .game-info p {
       font-size: 1rem;
       margin: 0;
+      line-height: 1.4;
     }
     .quantum-footer {
       background: rgba(11, 11, 21, 0.95);
@@ -307,11 +309,15 @@
     <h2 class="section-header">Gaming Experiences</h2>
     <div class="neon-grid">
       <div class="game-hologram">
-        <img src="noh.png"alt="Shadows of the Still">
+        <video autoplay loop muted playsinline class="game-video">
+          <source src="noh.mp4" type="video/mp4">
+        </video>
         <div class="game-info">
           <h3>No one's home</h3>
           <p>
-            A spine-chilling horror experience that plunges you into a dark, unsettling world where fear is redefined.
+            A relentless psychological horror where your childhood home becomes the labyrinth. 
+            Endless looping corridors hide subtle changes in each pass - a creak you don't remember, 
+            shadows that lean just wrong. The VHS-quality visuals warp as your pulse quickens.
           </p>
         </div>
       </div>

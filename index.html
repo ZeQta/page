@@ -216,12 +216,12 @@
       transform: scale(1.05);
     }
     .game-info {
-      position: absolute;
-      bottom: 0;
+      position: relative;
       background: rgba(0, 0, 0, 0.6);
       width: 100%;
       padding: 1rem;
       text-align: center;
+      margin-top: 1rem;
     }
     .game-info h3 {
       font-size: 1.5rem;
@@ -270,7 +270,7 @@
     <!-- The logo image will zoom in (bigger) -->
     <img id="loading-logo" src="logo.png" alt="ZeQta">
   </div>
-  
+
   <!-- =================== Navigation =================== -->
   <nav class="quantum-nav">
     <div class="brand-matrix">
@@ -278,7 +278,7 @@
       <span class="cyber-brand">ZeQta</span>
     </div>
   </nav>
-  
+
   <!-- =================== Hero Section with Matrix Rain Effect =================== -->
   <section class="quantum-hero">
     <canvas id="matrix-canvas"></canvas>
@@ -289,7 +289,7 @@
       </p>
     </div>
   </section>
-  
+
   <!-- =================== AI Innovations Section =================== -->
   <section class="quantum-section">
     <h2 class="section-header">AI Innovations</h2>
@@ -303,7 +303,7 @@
       </div>
     </div>
   </section>
-  
+
   <!-- =================== Gaming Experiences Section =================== -->
   <section class="quantum-section">
     <h2 class="section-header">Gaming Experiences</h2>
@@ -312,18 +312,18 @@
         <video autoplay loop muted playsinline class="game-video">
           <source src="noh.mp4" type="video/mp4">
         </video>
-        <div class="game-info">
-          <h3>No one's home</h3>
-          <p>
-            A relentless psychological horror where your childhood home becomes the labyrinth. 
-            Endless looping corridors hide subtle changes in each pass - a creak you don't remember, 
-            shadows that lean just wrong. The VHS-quality visuals warp as your pulse quickens.
-          </p>
-        </div>
+      </div>
+      <div class="game-info">
+        <h3>No one's home</h3>
+        <p>
+          A relentless psychological horror where your childhood home becomes the labyrinth.
+          Endless looping corridors hide subtle changes in each pass - a creak you don't remember,
+          shadows that lean just wrong. The VHS-quality visuals warp as your pulse quickens.
+        </p>
       </div>
     </div>
   </section>
-  
+
   <!-- =================== Footer =================== -->
   <footer class="quantum-footer">
     <div class="hologram-socials">
@@ -333,7 +333,7 @@
     </div>
     <p class="copyright">© 2025 ZeQta Industries. All rights reserved.</p>
   </footer>
-  
+
   <!-- =================== Matrix Rain Effect Script for Hero Section =================== -->
   <script>
     const matrixCanvas = document.getElementById('matrix-canvas');
@@ -368,7 +368,7 @@
     setInterval(drawMatrix, 33);
     window.addEventListener('resize', resizeMatrix);
   </script>
-  
+
   <!-- =================== 2D Loading Screen Matrix Effect Script =================== -->
   <script>
     const loadingCanvas = document.getElementById('loading-canvas');
@@ -403,7 +403,7 @@
     const loadingInterval = setInterval(drawLoadingMatrix, 33);
     window.addEventListener('resize', resizeLoadingCanvas);
   </script>
-  
+
   <!-- =================== Loading Screen Transition Script =================== -->
   <script>
     // After 5 seconds, zoom in the logo then fade out the loading screen
@@ -420,7 +420,7 @@
       }, 2000);
     }, 5000);
   </script>
-  
+
   <!-- =================== Intersection Observer for Section Animations =================== -->
   <script>
     const quantumSections = document.querySelectorAll('.quantum-section, .cyber-card');

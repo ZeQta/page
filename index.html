@@ -55,7 +55,7 @@
       z-index: 1;
       opacity: 0;
       transform: scale(0);
-      width: 300px; /* Increased size */
+      width: 300px;
     }
     @keyframes zoomIn {
       0% { opacity: 0; transform: scale(0); }
@@ -92,8 +92,6 @@
       font-weight: 800;
       letter-spacing: -0.5px;
     }
-    /* (Toggle switch removed – dark mode only) */
-    .switch { display: none; }
     /* =================== Hero Section =================== */
     .quantum-hero {
       position: relative;
@@ -267,7 +265,6 @@
   <!-- =================== Loading Screen with 2D Matrix Effect =================== -->
   <div id="loading-screen">
     <canvas id="loading-canvas"></canvas>
-    <!-- The logo image will zoom in (bigger) -->
     <img id="loading-logo" src="logo.png" alt="ZeQta">
   </div>
 
@@ -320,8 +317,8 @@
           At first, it’s just small things: a misplaced object, a door slightly open when you swore it was closed.
           But soon, the house itself begins to feel… wrong. Unexplainable noises, shadows moving in the hallway, and cryptic messages on your phone make you question reality.
           Are you truly alone?
-
-Your only goal: Survive until morning.
+          <br><br>
+          Your only goal: Survive until morning.
         </p>
       </div>
     </div>
@@ -356,7 +353,6 @@ Your only goal: Survive until morning.
     function drawMatrix() {
       ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
       ctx.fillRect(0, 0, matrixCanvas.width, matrixCanvas.height);
-      // Use the accent color (#6366f1) for the falling digits
       ctx.fillStyle = "#6366f1";
       ctx.font = fontSize + "px monospace";
       for (let i = 0; i < drops.length; i++) {
@@ -409,16 +405,16 @@ Your only goal: Survive until morning.
 
   <!-- =================== Loading Screen Transition Script =================== -->
   <script>
-    // After 5 seconds, zoom in the logo then fade out the loading screen
     setTimeout(() => {
       const loadingLogo = document.getElementById('loading-logo');
       loadingLogo.style.animation = "zoomIn 1s forwards";
       setTimeout(() => {
-        document.getElementById('loading-screen').style.transition = "opacity 1s";
-        document.getElementById('loading-screen').style.opacity = 0;
+        const loadingScreen = document.getElementById('loading-screen');
+        loadingScreen.style.transition = "opacity 1s";
+        loadingScreen.style.opacity = 0;
         clearInterval(loadingInterval);
         setTimeout(() => {
-          document.getElementById('loading-screen').remove();
+          loadingScreen.remove();
         }, 1000);
       }, 2000);
     }, 5000);
@@ -437,5 +433,11 @@ Your only goal: Survive until morning.
     }, { threshold: 0.1 });
     quantumSections.forEach(section => observer.observe(section));
   </script>
+
+  <!-- =================== Chatling Chatbot Code =================== -->
+  <script>
+    window.chtlConfig = { chatbotId: "1159521699" };
+  </script>
+  <script async data-id="1159521699" id="chatling-embed-script" type="text/javascript" src="https://chatling.ai/js/embed.js"></script>
 </body>
 </html>

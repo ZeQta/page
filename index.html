@@ -167,12 +167,13 @@
     @keyframes quantumEntrance {
       to { opacity: 1; transform: translateY(0); }
     }
+    /* Changed AI Nexus Section to use horizontal scrolling */
     .ai-nexus {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      display: flex;
       gap: 2.5rem;
-      max-width: 1200px;
-      margin: 0 auto;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      padding-bottom: 1rem;
     }
     .cyber-card {
       background: rgba(255,255,255,0.03);
@@ -183,6 +184,9 @@
       opacity: 0;
       transform: translateY(50px);
       animation: quantumEntrance 1s forwards;
+      scroll-snap-align: start;
+      min-width: 350px;
+      flex-shrink: 0;
     }
     .cyber-card:hover {
       transform: translateY(-10px);
@@ -306,6 +310,15 @@
   <section class="quantum-section">
     <h2 class="section-header">AI Innovations</h2>
     <div class="ai-nexus">
+      <!-- CodeX AI (lite) Card -->
+      <div class="cyber-card">
+        <h3>CodeX AI (lite)</h3>
+        <p>
+          CodeX AI (lite) is an AI coding assistant offering instant coding help, smart debugging, and contextual code insights using the DeepSeek R1 free model.
+        </p>
+        <div class="status-tag">Free Access</div>
+        <a href="https://codex-sigma-steel.vercel.app/" target="_blank" class="try-button">TRY</a>
+      </div>
       <!-- ZeQtaAI Card -->
       <div class="cyber-card">
         <h3>ZeQtaAI</h3>
@@ -319,7 +332,7 @@
       <div class="cyber-card">
         <h3>Hycross AI (Early Access)</h3>
         <p>
-          Hycross AI is an advanced AI tool powered by OpenRouter API, offering seamless and intelligent chatbot interactions. Currently under development, it features a sleek, modern UI designed for a smooth and responsive user experience. Stay tuned for updates as we refine and enhance its capabilities!
+          Hycross AI is an advanced AI tool powered by OpenRouter API, offering seamless and intelligent chatbot interactions. Currently under development with a sleek, modern UI.
         </p>
         <div class="status-tag">Early Access</div>
         <a href="https://zeqta.github.io/HycrossAI/" target="_blank" class="try-button">TRY</a>
